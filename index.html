@@ -43,6 +43,7 @@
 
     .reveal{ font-family: var(--r-main-font); }
     .reveal .slides{ text-align: right; }
+    .reveal .slides section{ direction: rtl; }
 
     /* Make content breathe */
     .reveal .slides section{ padding: 24px 28px; }
@@ -54,17 +55,18 @@
       border-radius: 22px;
       box-shadow: var(--shadow);
       padding: 18px 20px;
+      text-align: right;
     }
-    .grid{ display:grid; gap:14px; }
-    .g2{ grid-template-columns: 1.15fr .85fr; }
+    .grid{ display:grid; gap:16px; direction: rtl; }
+    .g2{ grid-template-columns: 1.05fr .95fr; align-items: stretch; }
     .g3{ grid-template-columns: repeat(3, 1fr); }
 
-    .kicker{ font-size: 18px; color: var(--muted); letter-spacing:.2px; }
-    h1{ font-size: 52px; line-height: 1.15; margin: 6px 0 8px; }
-    h2{ font-size: 34px; line-height: 1.25; margin: 0 0 12px; }
-    h3{ font-size: 22px; margin: 0 0 8px; }
+    .kicker{ font-size: clamp(16px, 1.6vw, 18px); color: var(--muted); letter-spacing:.2px; }
+    h1{ font-size: clamp(34px, 3.8vw, 52px); line-height: 1.2; margin: 6px 0 8px; }
+    h2{ font-size: clamp(26px, 2.6vw, 34px); line-height: 1.35; margin: 0 0 12px; }
+    h3{ font-size: clamp(18px, 2vw, 22px); margin: 0 0 8px; }
 
-    p, li{ font-size: 20px; line-height: 1.85; color: var(--muted); }
+    p, li{ font-size: clamp(16px, 1.7vw, 20px); line-height: 1.9; color: var(--muted); }
     ul{ margin: 8px 0 0; }
 
     .badge{
@@ -80,7 +82,7 @@
     .dot{ width:10px; height:10px; border-radius:50%; background: var(--accent2); box-shadow: 0 0 0 6px rgba(0,212,255,.12); }
 
     .metaRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px; }
-    .brandRow{ display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom: 8px; }
+    .brandRow{ display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom: 8px; flex-wrap: wrap; }
     .logoWrap{
       width: 78px; height: 78px; border-radius: 18px;
       border: 1px solid var(--stroke); background: rgba(255,255,255,.08);
@@ -89,7 +91,8 @@
     }
     .logoWrap img{ width: 56px; height: 56px; object-fit: contain; }
     .presenter{
-      font-size: 18px; color: var(--muted);
+      font-size: clamp(15px, 1.6vw, 18px);
+      color: var(--muted);
       display:flex; flex-direction:column; gap:2px;
     }
 
@@ -106,6 +109,7 @@
 
     /* Decorative SVG backgrounds per slide */
     .bgSVG{ position:absolute; inset:0; width:100%; height:100%; opacity:1; }
+    .heroArt text{ font-family: var(--r-main-font); }
 
     /* Mini KPI cards */
     .kpi{
@@ -140,19 +144,22 @@
 
     /* Small print */
     .foot{ margin-top: 10px; font-size: 14px; color: rgba(244,247,255,.6); }
-    .sectionTitle{ font-size: 18px; color: var(--muted); margin-bottom: 6px; }
 
     /* RTL fixes for Reveal */
     .reveal .slides section .fragment{ display:block; }
 
     /* Responsive scaling */
     @media (max-width: 900px){
-      h1{ font-size: 40px; }
-      h2{ font-size: 28px; }
-      p, li{ font-size: 18px; }
+      .reveal .slides section{ padding: 18px 16px; }
       .g2{ grid-template-columns: 1fr; }
       .g3{ grid-template-columns: 1fr; }
       .heroArt{ aspect-ratio: 16/11; }
+      .brandRow{ justify-content: flex-start; }
+    }
+    @media (max-width: 640px){
+      .heroArt{ display:none; }
+      .metaRow{ gap:6px; }
+      .badge{ font-size: 14px; }
     }
   </style>
 </head>
@@ -434,63 +441,6 @@
               </g>
             </svg>
           </div>
-        </div>
-      </section>
-
-      <!-- Slide 4.5: Login credentials -->
-      <section data-transition="fade">
-        <div class="card">
-          <h2>حساب‌های دمو و سطح دسترسی</h2>
-          <p class="sectionTitle">برای مرور دقیق منوها و امکانات، از حساب‌های زیر استفاده می‌شود.</p>
-          <table>
-            <thead>
-              <tr>
-                <th>نقش کاربری</th>
-                <th>نام کاربری</th>
-                <th>کلمه عبور</th>
-                <th>دسترسی‌ها</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><b>مدیر سیستم</b></td>
-                <td><code>admin</code></td>
-                <td><code>Admin@123</code></td>
-                <td>دسترسی کامل، تنظیمات امنیتی</td>
-              </tr>
-              <tr>
-                <td><b>مدیر ارشد (CEO)</b></td>
-                <td><code>exec1</code></td>
-                <td><code>Exec@123</code></td>
-                <td>داشبورد مدیریتی و تحلیل استراتژیک</td>
-              </tr>
-              <tr>
-                <td><b>مدیر منابع انسانی</b></td>
-                <td><code>hr1</code></td>
-                <td><code>Hr@123</code></td>
-                <td>مدیریت پرسنل، مرخصی‌ها، تحلیل الگوها</td>
-              </tr>
-              <tr>
-                <td><b>مدیر عملیات</b></td>
-                <td><code>ops1</code></td>
-                <td><code>Ops@123</code></td>
-                <td>آمادگی عملیاتی، شیفت‌ها، ظرفیت واحدها</td>
-              </tr>
-              <tr>
-                <td><b>اپراتور دیسپاچ</b></td>
-                <td><code>dispatch1</code></td>
-                <td><code>Dispatch@123</code></td>
-                <td>مانیتورینگ شیفت، ثبت وقایع</td>
-              </tr>
-              <tr>
-                <td><b>کارمند عادی</b></td>
-                <td><code>emp1</code></td>
-                <td><code>Emp@123</code></td>
-                <td>داشبورد شخصی، ثبت تردد، درخواست‌ها</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="foot">این اطلاعات صرفاً برای محیط دمو است و باید مطابق سیاست امنیتی سازمانی تغییر یابد.</div>
         </div>
       </section>
 
