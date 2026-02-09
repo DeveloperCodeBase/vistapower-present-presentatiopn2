@@ -1,0 +1,1070 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>پلتفرم تحلیل هوشمند حضور و غیاب | شبکه هوشمند ابتکار ویستا</title>
+
+  <!-- Reveal.js (CDN). For offline use, download and serve locally. -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/black.css" id="theme">
+
+  <!-- Persian font (CDN). Replace with local font if needed. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@200;300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#070A12;
+      --card:rgba(255,255,255,.08);
+      --card2:rgba(255,255,255,.06);
+      --stroke:rgba(255,255,255,.14);
+      --text:#F4F7FF;
+      --muted:rgba(244,247,255,.72);
+      --accent:#7C5CFF;
+      --accent2:#00D4FF;
+      --good:#20E3B2;
+      --warn:#FFB020;
+      --bad:#FF4D6D;
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --r-heading-text-transform: none;
+      --r-main-font: "Vazirmatn", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      --r-heading-font: "Vazirmatn", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      --r-main-color: var(--text);
+      --r-heading-color: var(--text);
+    }
+
+    body{ background: radial-gradient(1200px 800px at 15% 20%, rgba(124,92,255,.25), transparent 55%),
+                  radial-gradient(900px 700px at 80% 20%, rgba(0,212,255,.18), transparent 55%),
+                  radial-gradient(900px 700px at 60% 85%, rgba(32,227,178,.14), transparent 55%),
+                  var(--bg);
+    }
+
+    .reveal{ font-family: var(--r-main-font); }
+    .reveal .slides{ text-align: right; }
+
+    /* Make content breathe */
+    .reveal .slides section{ padding: 24px 28px; }
+
+    /* Cards */
+    .card{
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      border: 1px solid var(--stroke);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 18px 20px;
+    }
+    .grid{ display:grid; gap:14px; }
+    .g2{ grid-template-columns: 1.15fr .85fr; }
+    .g3{ grid-template-columns: repeat(3, 1fr); }
+
+    .kicker{ font-size: 18px; color: var(--muted); letter-spacing:.2px; }
+    h1{ font-size: 52px; line-height: 1.15; margin: 6px 0 8px; }
+    h2{ font-size: 34px; line-height: 1.25; margin: 0 0 12px; }
+    h3{ font-size: 22px; margin: 0 0 8px; }
+
+    p, li{ font-size: 20px; line-height: 1.85; color: var(--muted); }
+    ul{ margin: 8px 0 0; }
+
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-size: 16px;
+      white-space: nowrap;
+    }
+    .dot{ width:10px; height:10px; border-radius:50%; background: var(--accent2); box-shadow: 0 0 0 6px rgba(0,212,255,.12); }
+
+    .metaRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px; }
+
+    .heroArt{
+      width: 100%;
+      aspect-ratio: 16/10;
+      border-radius: 20px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.04);
+      overflow:hidden;
+      position: relative;
+      box-shadow: 0 16px 50px rgba(0,0,0,.55);
+    }
+
+    /* Decorative SVG backgrounds per slide */
+    .bgSVG{ position:absolute; inset:0; width:100%; height:100%; opacity:1; }
+
+    /* Mini KPI cards */
+    .kpi{
+      border-radius: 18px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
+      padding: 14px 14px;
+    }
+    .kpi .num{ font-size: 34px; font-weight: 800; color: var(--text); }
+    .kpi .lbl{ font-size: 16px; color: var(--muted); margin-top: 2px; }
+
+    /* Buttons mock */
+    .btnRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 8px; }
+    .btn{
+      display:inline-flex; align-items:center; gap:8px;
+      border-radius: 14px;
+      padding: 10px 12px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-size: 16px;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(0,212,255,.55));
+      border-color: rgba(255,255,255,.18);
+    }
+
+    /* Tables */
+    table{ width:100%; border-collapse: collapse; font-size: 18px; }
+    th, td{ border-bottom: 1px solid rgba(255,255,255,.12); padding: 10px 8px; color: var(--muted); }
+    th{ color: var(--text); font-weight: 700; }
+
+    /* Small print */
+    .foot{ margin-top: 10px; font-size: 14px; color: rgba(244,247,255,.6); }
+
+    /* RTL fixes for Reveal */
+    .reveal .slides section .fragment{ display:block; }
+
+    /* Responsive scaling */
+    @media (max-width: 900px){
+      h1{ font-size: 40px; }
+      h2{ font-size: 28px; }
+      p, li{ font-size: 18px; }
+      .g2{ grid-template-columns: 1fr; }
+      .g3{ grid-template-columns: 1fr; }
+      .heroArt{ aspect-ratio: 16/11; }
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Slide 1: Cover -->
+      <section data-transition="zoom">
+        <div class="grid g2" style="align-items:stretch;">
+          <div class="card">
+            <div class="kicker">شرکت شبکه هوشمند ابتکار ویستا</div>
+            <h1>پلتفرم تحلیل هوشمند حضور و غیاب</h1>
+            <p>
+              دمو تحت وب برای پایش حضور، تحلیل الگوها، گزارش‌های مدیریتی و افزایش بهره‌وری سازمانی.
+            </p>
+            <div class="metaRow">
+              <span class="badge"><span class="dot"></span>نسخه دمو | UI کامل</span>
+              <span class="badge">طراحی ریسپانسیو</span>
+              <span class="badge">تحلیل‌محور و قابل توسعه</span>
+            </div>
+            <div class="foot">ارائه برای شرکت برق منطقه‌ای استان سمنان</div>
+            <aside class="notes">
+              سلام و وقت بخیر. این ارائه درباره پلتفرم تحلیل هوشمند حضور و غیاب است که به صورت دمو تحت وب پیاده‌سازی شده.
+              هدف، نشان دادن تجربه کاربری، داشبوردها، گزارش‌ها و مسیر تبدیل دمو به محصول عملیاتی است.
+            </aside>
+          </div>
+
+          <div class="heroArt" aria-label="پس‌زمینه و تصویر مفهومی اسلاید">
+            <!-- Custom SVG illustration: smart attendance + network grid -->
+            <svg class="bgSVG" viewBox="0 0 1200 750" xmlns="http://www.w3.org/2000/svg" role="img">
+              <defs>
+                <radialGradient id="rg1" cx="25%" cy="20%" r="70%">
+                  <stop offset="0" stop-color="#7C5CFF" stop-opacity="0.55"/>
+                  <stop offset="1" stop-color="#000" stop-opacity="0"/>
+                </radialGradient>
+                <radialGradient id="rg2" cx="85%" cy="25%" r="70%">
+                  <stop offset="0" stop-color="#00D4FF" stop-opacity="0.35"/>
+                  <stop offset="1" stop-color="#000" stop-opacity="0"/>
+                </radialGradient>
+                <linearGradient id="lg" x1="0" x2="1">
+                  <stop offset="0" stop-color="#7C5CFF" stop-opacity="0.95"/>
+                  <stop offset="1" stop-color="#00D4FF" stop-opacity="0.85"/>
+                </linearGradient>
+              </defs>
+              <rect width="1200" height="750" fill="#070A12"/>
+              <rect width="1200" height="750" fill="url(#rg1)"/>
+              <rect width="1200" height="750" fill="url(#rg2)"/>
+
+              <!-- grid -->
+              <g opacity="0.22" stroke="#ffffff" stroke-width="1">
+                <path d="M0 110H1200M0 210H1200M0 310H1200M0 410H1200M0 510H1200M0 610H1200"/>
+                <path d="M120 0V750M240 0V750M360 0V750M480 0V750M600 0V750M720 0V750M840 0V750M960 0V750M1080 0V750"/>
+              </g>
+
+              <!-- abstract nodes -->
+              <g fill="#00D4FF" opacity="0.35">
+                <circle cx="240" cy="220" r="10"/>
+                <circle cx="480" cy="310" r="8"/>
+                <circle cx="720" cy="180" r="9"/>
+                <circle cx="960" cy="420" r="10"/>
+                <circle cx="840" cy="560" r="7"/>
+              </g>
+              <g stroke="url(#lg)" stroke-width="3" opacity="0.55">
+                <path d="M240 220 L480 310 L720 180 L960 420 L840 560" fill="none"/>
+              </g>
+
+              <!-- Dashboard mock -->
+              <g transform="translate(170,360)" opacity="0.95">
+                <rect x="0" y="0" width="860" height="300" rx="24" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
+                <rect x="24" y="26" width="270" height="110" rx="18" fill="rgba(255,255,255,0.06)"/>
+                <rect x="312" y="26" width="250" height="110" rx="18" fill="rgba(255,255,255,0.06)"/>
+                <rect x="580" y="26" width="256" height="110" rx="18" fill="rgba(255,255,255,0.06)"/>
+
+                <!-- bars -->
+                <g transform="translate(24,160)">
+                  <rect x="0" y="0" width="812" height="112" rx="18" fill="rgba(255,255,255,0.05)"/>
+                  <g transform="translate(28,24)" opacity="0.9">
+                    <rect x="0" y="50" width="90" height="32" rx="10" fill="#20E3B2" fill-opacity="0.55"/>
+                    <rect x="110" y="30" width="90" height="52" rx="10" fill="#00D4FF" fill-opacity="0.45"/>
+                    <rect x="220" y="14" width="90" height="68" rx="10" fill="#7C5CFF" fill-opacity="0.55"/>
+                    <rect x="330" y="40" width="90" height="42" rx="10" fill="#FFB020" fill-opacity="0.55"/>
+                    <rect x="440" y="22" width="90" height="60" rx="10" fill="#FF4D6D" fill-opacity="0.50"/>
+                    <rect x="550" y="10" width="90" height="72" rx="10" fill="#20E3B2" fill-opacity="0.40"/>
+                    <rect x="660" y="34" width="90" height="48" rx="10" fill="#00D4FF" fill-opacity="0.35"/>
+                  </g>
+                </g>
+              </g>
+
+              <!-- Title glow -->
+              <circle cx="1030" cy="140" r="120" fill="#7C5CFF" opacity="0.12"/>
+              <circle cx="1030" cy="140" r="70" fill="#00D4FF" opacity="0.10"/>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 2: Why -->
+      <section data-transition="fade">
+        <div class="grid g2" style="align-items:start;">
+          <div class="card">
+            <h2>مسئله‌ای که حل می‌کنیم</h2>
+            <ul>
+              <li class="fragment">پراکنده بودن داده‌های تردد، شیفت، مأموریت و مرخصی در منابع مختلف.</li>
+              <li class="fragment">عدم مشاهده‌ی سریع الگوهای تأخیر/غیبت و ریسک‌های عملیاتی در واحدهای حساس.</li>
+              <li class="fragment">گزارش‌گیری زمان‌بر و وابسته به فایل‌های دستی (خطای انسانی و ناسازگاری).</li>
+              <li class="fragment">نیاز به داشبورد مدیریتی قابل اتکا برای تصمیم‌سازی.</li>
+            </ul>
+            <aside class="notes">
+              اینجا مشکل را واضح می‌کنیم: سازمان‌هایی مثل برق منطقه‌ای، برای پایداری سرویس نیاز به حضور مؤثر نیروها دارند.
+              اگر داده‌ها پراکنده باشد و گزارش‌ها دستی، تصمیم‌گیری کند و پرخطا می‌شود.
+            </aside>
+          </div>
+          <div class="heroArt">
+            <svg class="bgSVG" viewBox="0 0 1200 750" xmlns="http://www.w3.org/2000/svg" role="img">
+              <defs>
+                <linearGradient id="s2g" x1="0" x2="1">
+                  <stop offset="0" stop-color="#FF4D6D" stop-opacity="0.55"/>
+                  <stop offset="1" stop-color="#FFB020" stop-opacity="0.45"/>
+                </linearGradient>
+              </defs>
+              <rect width="1200" height="750" fill="#070A12"/>
+              <circle cx="280" cy="220" r="220" fill="url(#s2g)" opacity="0.35"/>
+              <circle cx="940" cy="520" r="260" fill="#7C5CFF" opacity="0.18"/>
+              <g opacity="0.9">
+                <rect x="180" y="180" width="840" height="420" rx="28" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
+                <rect x="220" y="230" width="760" height="56" rx="16" fill="rgba(255,255,255,0.05)"/>
+                <rect x="220" y="310" width="760" height="56" rx="16" fill="rgba(255,255,255,0.05)"/>
+                <rect x="220" y="390" width="760" height="56" rx="16" fill="rgba(255,255,255,0.05)"/>
+                <rect x="220" y="470" width="520" height="56" rx="16" fill="rgba(255,255,255,0.05)"/>
+
+                <g fill="#FF4D6D" opacity="0.8">
+                  <circle cx="260" cy="258" r="10"/>
+                  <circle cx="260" cy="338" r="10"/>
+                  <circle cx="260" cy="418" r="10"/>
+                  <circle cx="260" cy="498" r="10"/>
+                </g>
+                <g fill="#ffffff" opacity="0.65" font-family="Vazirmatn" font-size="22">
+                  <text x="290" y="266">هشدار تأخیرهای تکرارشونده</text>
+                  <text x="290" y="346">ناهمخوانی شیفت و تردد</text>
+                  <text x="290" y="426">غیبت بدون مجوز</text>
+                  <text x="290" y="506">نیاز به گزارش مدیریتی لحظه‌ای</text>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: What we delivered (Demo) -->
+      <section data-transition="slide">
+        <div class="card">
+          <h2>دموی تحت وب چه چیزی را نشان می‌دهد</h2>
+          <div class="grid g3" style="margin-top:10px;">
+            <div class="kpi fragment">
+              <div class="num">۳</div>
+              <div class="lbl">نقش کاربری (مدیر، منابع انسانی، کارمند)</div>
+            </div>
+            <div class="kpi fragment">
+              <div class="num">۱۲+</div>
+              <div class="lbl">ویجت تحلیلی و گزارش (داشبورد/نمودار/لیست)</div>
+            </div>
+            <div class="kpi fragment">
+              <div class="num">RTL</div>
+              <div class="lbl">طراحی فارسی و ریسپانسیو</div>
+            </div>
+          </div>
+
+          <div class="grid g2" style="margin-top:14px; align-items:start;">
+            <div class="card" style="box-shadow:none;">
+              <h3>ماژول‌های نمایشی در دمو</h3>
+              <ul>
+                <li class="fragment">داشبورد مدیریتی با KPI و روندها</li>
+                <li class="fragment">پروفایل و تاریخچه حضور هر کارمند</li>
+                <li class="fragment">ثبت درخواست مرخصی/مأموریت (نمایشی)</li>
+                <li class="fragment">گزارش و فیلتر پیشرفته (تاریخ، واحد، وضعیت)</li>
+              </ul>
+              <aside class="notes">
+                این اسلاید مرز دمو را مشخص می‌کند: تمرکز روی تجربه کاربری و نمایش قابلیت‌هاست.
+                این دمو آماده است تا با دیتای واقعی سازمان و سیاست‌های دسترسی، عملیاتی شود.
+              </aside>
+            </div>
+
+            <div class="heroArt">
+              <svg class="bgSVG" viewBox="0 0 1200 750" xmlns="http://www.w3.org/2000/svg" role="img">
+                <defs>
+                  <linearGradient id="s3lg" x1="0" x2="1">
+                    <stop offset="0" stop-color="#20E3B2" stop-opacity="0.55"/>
+                    <stop offset="1" stop-color="#00D4FF" stop-opacity="0.35"/>
+                  </linearGradient>
+                </defs>
+                <rect width="1200" height="750" fill="#070A12"/>
+                <circle cx="250" cy="560" r="260" fill="url(#s3lg)" opacity="0.35"/>
+                <circle cx="980" cy="190" r="220" fill="#7C5CFF" opacity="0.18"/>
+
+                <!-- UI mock: sidebar + content -->
+                <g transform="translate(160,120)" opacity="0.95">
+                  <rect x="0" y="0" width="880" height="510" rx="28" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
+                  <rect x="0" y="0" width="220" height="510" rx="28" fill="rgba(255,255,255,0.05)"/>
+                  <g fill="#ffffff" opacity="0.75" font-family="Vazirmatn" font-size="18">
+                    <text x="160" y="60">منو</text>
+                    <text x="40" y="110">داشبورد</text>
+                    <text x="40" y="155">گزارش‌ها</text>
+                    <text x="40" y="200">کارکنان</text>
+                    <text x="40" y="245">درخواست‌ها</text>
+                    <text x="40" y="290">تنظیمات</text>
+                  </g>
+                  <rect x="260" y="40" width="590" height="70" rx="18" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="260" y="130" width="280" height="150" rx="18" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="570" y="130" width="280" height="150" rx="18" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="260" y="300" width="590" height="180" rx="18" fill="rgba(255,255,255,0.05)"/>
+
+                  <!-- highlight -->
+                  <rect x="22" y="92" width="176" height="44" rx="12" fill="#7C5CFF" fill-opacity="0.28" stroke="rgba(255,255,255,0.16)"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: User roles -->
+      <section data-transition="convex">
+        <div class="grid g2" style="align-items:stretch;">
+          <div class="card">
+            <h2>نقش‌ها و سطح دسترسی</h2>
+            <ul>
+              <li class="fragment"><b>مدیر ارشد</b>: دید کلان، KPIها، روندها، هشدارها، خروجی مدیریتی.</li>
+              <li class="fragment"><b>منابع انسانی</b>: کنترل سیاست‌ها، شیفت‌ها، درخواست‌ها، تایید/رد، گزارش‌های عملیاتی.</li>
+              <li class="fragment"><b>کارمند</b>: مشاهده کارکرد، ثبت درخواست‌ها، تاریخچه و اعلان‌ها.</li>
+            </ul>
+            <div class="btnRow">
+              <span class="btn primary">ورود</span>
+              <span class="btn">مشاهده داشبورد</span>
+              <span class="btn">گزارش‌گیری</span>
+              <span class="btn">درخواست مرخصی</span>
+            </div>
+            <aside class="notes">
+              اینجا توضیح دهید که چرا نقش‌ها مهم‌اند: امنیت، تفکیک وظایف، کنترل دسترسی و کاهش خطا.
+              در نسخه عملیاتی، RBAC دقیق و لاگ کامل فعالیت کاربران اضافه می‌شود.
+            </aside>
+          </div>
+          <div class="heroArt">
+            <svg class="bgSVG" viewBox="0 0 1200 750" xmlns="http://www.w3.org/2000/svg" role="img">
+              <rect width="1200" height="750" fill="#070A12"/>
+              <circle cx="290" cy="210" r="220" fill="#00D4FF" opacity="0.18"/>
+              <circle cx="960" cy="530" r="270" fill="#7C5CFF" opacity="0.20"/>
+              <g opacity="0.95" transform="translate(170,120)">
+                <rect x="0" y="0" width="860" height="510" rx="28" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
+
+                <!-- Three persona cards -->
+                <g transform="translate(60,70)">
+                  <rect x="0" y="0" width="740" height="110" rx="22" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="0" y="140" width="740" height="110" rx="22" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="0" y="280" width="740" height="110" rx="22" fill="rgba(255,255,255,0.05)"/>
+
+                  <g font-family="Vazirmatn" fill="#fff" opacity="0.78" font-size="22">
+                    <text x="70" y="68">مدیر ارشد</text>
+                    <text x="70" y="208">منابع انسانی</text>
+                    <text x="70" y="348">کارمند</text>
+                  </g>
+
+                  <g opacity="0.9">
+                    <circle cx="32" cy="55" r="18" fill="#00D4FF" fill-opacity="0.45"/>
+                    <circle cx="32" cy="195" r="18" fill="#20E3B2" fill-opacity="0.45"/>
+                    <circle cx="32" cy="335" r="18" fill="#7C5CFF" fill-opacity="0.45"/>
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Dashboards & visuals -->
+      <section data-transition="slide">
+        <div class="grid g2" style="align-items:start;">
+          <div class="card">
+            <h2>خروجی‌های نمایشی کلیدی</h2>
+            <ul>
+              <li class="fragment">کارت‌های KPI: حضور، غیبت، تأخیر، اضافه‌کار، مرخصی مصرف‌شده.</li>
+              <li class="fragment">نمودارهای روند: تغییرات حضور/غیبت در بازه‌های روزانه، هفتگی، ماهانه.</li>
+              <li class="fragment">نقشه‌ی پراکندگی (در نسخه عملیاتی): وضعیت واحدها/پست‌ها/گروه‌ها.</li>
+              <li class="fragment">جدول‌های قابل فیلتر: جستجو، فیلتر چندگانه، مرتب‌سازی و Drill-down.</li>
+            </ul>
+            <aside class="notes">
+              روی ارزش دیداری تاکید کنید: مدیر باید در چند ثانیه تصویر کلی را بفهمد.
+              سپس با کلیک وارد جزئیات یک واحد یا یک نفر شود.
+            </aside>
+          </div>
+          <div class="heroArt">
+            <svg class="bgSVG" viewBox="0 0 1200 750" xmlns="http://www.w3.org/2000/svg" role="img">
+              <defs>
+                <linearGradient id="s5" x1="0" x2="1">
+                  <stop offset="0" stop-color="#00D4FF" stop-opacity="0.40"/>
+                  <stop offset="1" stop-color="#20E3B2" stop-opacity="0.25"/>
+                </linearGradient>
+              </defs>
+              <rect width="1200" height="750" fill="#070A12"/>
+              <circle cx="340" cy="520" r="280" fill="url(#s5)" opacity="0.28"/>
+              <circle cx="980" cy="170" r="230" fill="#7C5CFF" opacity="0.16"/>
+
+              <g transform="translate(170,130)" opacity="0.95">
+                <rect x="0" y="0" width="860" height="490" rx="28" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
+
+                <!-- KPI row -->
+                <g transform="translate(34,34)">
+                  <rect x="0" y="0" width="190" height="110" rx="18" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="210" y="0" width="190" height="110" rx="18" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="420" y="0" width="190" height="110" rx="18" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="630" y="0" width="196" height="110" rx="18" fill="rgba(255,255,255,0.05)"/>
+
+                  <g font-family="Vazirmatn" fill="#fff" opacity="0.75" font-size="18">
+                    <text x="22" y="35">حضور</text>
+                    <text x="232" y="35">غیبت</text>
+                    <text x="442" y="35">تأخیر</text>
+                    <text x="652" y="35">اضافه‌کار</text>
+                  </g>
+                  <g font-family="Vazirmatn" fill="#fff" opacity="0.92" font-size="30">
+                    <text x="22" y="82">92%</text>
+                    <text x="232" y="82">3.1%</text>
+                    <text x="442" y="82">4.9%</text>
+                    <text x="652" y="82">+18%</text>
+                  </g>
+                </g>
+
+                <!-- Trend line area -->
+                <g transform="translate(34,170)">
+                  <rect x="0" y="0" width="792" height="280" rx="22" fill="rgba(255,255,255,0.05)"/>
+                  <g opacity="0.85" fill="none" stroke-width="4">
+                    <path d="M50 210 C 160 140, 220 160, 320 110 S 520 95, 640 140 S 740 120, 760 80" stroke="#00D4FF"/>
+                    <path d="M50 230 C 160 220, 220 200, 320 210 S 520 240, 640 210 S 740 220, 760 200" stroke="#FF4D6D" opacity="0.85"/>
+                  </g>
+                  <g opacity="0.35" stroke="#fff" stroke-width="1">
+                    <path d="M50 60H760M50 120H760M50 180H760M50 240H760"/>
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Smart analytics -->
+      <section data-transition="fade">
+        <div class="card">
+          <h2>تحلیل هوشمند چه می‌کند؟</h2>
+          <div class="grid g2" style="align-items:start;">
+            <div>
+              <ul>
+                <li class="fragment">تشخیص الگوهای غیرعادی (تأخیرهای تکراری، غیبت خوشه‌ای، نوسان شیفت).</li>
+                <li class="fragment">امتیاز ریسک عملیاتی برای واحدها و نقش‌های حساس (Score قابل تنظیم).</li>
+                <li class="fragment">پیش‌بینی روندها در بازه‌های کوتاه و میان‌مدت (در نسخه عملیاتی).</li>
+                <li class="fragment">تولید هشدارهای قابل اقدام (Actionable Alerts) برای مدیر/HR.</li>
+              </ul>
+              <div class="foot">در دمو، این موارد به‌صورت نمایشی و UI کامل پیاده‌سازی شده و در نسخه اجرایی با دیتای واقعی فعال می‌شود.</div>
+            </div>
+            <div class="heroArt">
+              <svg class="bgSVG" viewBox="0 0 1200 750" xmlns="http://www.w3.org/2000/svg" role="img">
+                <defs>
+                  <linearGradient id="s6" x1="0" x2="1">
+                    <stop offset="0" stop-color="#7C5CFF" stop-opacity="0.50"/>
+                    <stop offset="1" stop-color="#FF4D6D" stop-opacity="0.35"/>
+                  </linearGradient>
+                </defs>
+                <rect width="1200" height="750" fill="#070A12"/>
+                <circle cx="300" cy="220" r="250" fill="url(#s6)" opacity="0.26"/>
+                <circle cx="980" cy="520" r="290" fill="#00D4FF" opacity="0.14"/>
+
+                <!-- Alert pipeline illustration -->
+                <g transform="translate(180,160)" opacity="0.95">
+                  <rect x="0" y="0" width="840" height="430" rx="28" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
+                  <g transform="translate(60,70)">
+                    <rect x="0" y="0" width="220" height="110" rx="22" fill="rgba(255,255,255,0.05)"/>
+                    <rect x="280" y="0" width="220" height="110" rx="22" fill="rgba(255,255,255,0.05)"/>
+                    <rect x="560" y="0" width="220" height="110" rx="22" fill="rgba(255,255,255,0.05)"/>
+
+                    <g font-family="Vazirmatn" fill="#fff" opacity="0.78" font-size="20">
+                      <text x="38" y="45">داده تردد</text>
+                      <text x="318" y="45">تحلیل</text>
+                      <text x="592" y="45">هشدار</text>
+                      <text x="38" y="78" opacity="0.6">ورود/خروج</text>
+                      <text x="318" y="78" opacity="0.6">الگو/ریسک</text>
+                      <text x="592" y="78" opacity="0.6">اقدام‌پذیر</text>
+                    </g>
+
+                    <g stroke="#00D4FF" stroke-width="4" opacity="0.65" fill="none">
+                      <path d="M220 55H280"/>
+                      <path d="M500 55H560"/>
+                      <path d="M248 48 l10 7 l-10 7"/>
+                      <path d="M528 48 l10 7 l-10 7"/>
+                    </g>
+
+                    <!-- bottom alerts list -->
+                    <g transform="translate(0,160)">
+                      <rect x="0" y="0" width="780" height="170" rx="22" fill="rgba(255,255,255,0.05)"/>
+                      <g font-family="Vazirmatn" font-size="18" fill="#fff" opacity="0.78">
+                        <text x="22" y="45">هشدارهای اخیر</text>
+                        <text x="22" y="85" opacity="0.65">• تأخیر تکراری در واحد عملیاتی A</text>
+                        <text x="22" y="118" opacity="0.65">• غیبت بدون مجوز (الگوی خوشه‌ای) در هفته جاری</text>
+                        <text x="22" y="151" opacity="0.65">• ناهمخوانی شیفت و تردد برای نقش حساس</text>
+                      </g>
+                      <g opacity="0.9">
+                        <circle cx="735" cy="82" r="10" fill="#FFB020" fill-opacity="0.75"/>
+                        <circle cx="735" cy="115" r="10" fill="#FF4D6D" fill-opacity="0.70"/>
+                        <circle cx="735" cy="148" r="10" fill="#7C5CFF" fill-opacity="0.70"/>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </div>
+          <aside class="notes">
+            این اسلاید را کاربردی ارائه کنید: خروجی هوشمند یعنی هشدارهای قابل اقدام، نه فقط نمودار.
+            بگویید دمو UI را نشان می‌دهد و موتور تحلیل با داده واقعی و سیاست‌ها دقیق تنظیم می‌شود.
+          </aside>
+        </div>
+      </section>
+
+      <!-- Slide 7: Data requirements -->
+      <section data-transition="slide">
+        <div class="grid g2" style="align-items:start;">
+          <div class="card">
+            <h2>داده‌های مورد نیاز برای نسخه اجرایی</h2>
+            <ul>
+              <li class="fragment"><b>داده تردد</b>: رکوردهای ورود/خروج (کارت‌خوان/بیومتریک/گیت) با زمان و شناسه.</li>
+              <li class="fragment"><b>ساختار سازمانی</b>: واحد، پست، نقش، محل خدمت، شیفت‌بندی و تقویم کاری.</li>
+              <li class="fragment"><b>رویدادهای HR</b>: مرخصی، مأموریت، اضافه‌کار، تغییر شیفت، مأموریت‌های اضطراری.</li>
+              <li class="fragment"><b>قوانین و سیاست‌ها</b>: سقف مجاز تأخیر، قواعد حضور، KPIهای سازمان، معیارهای هشدار.</li>
+            </ul>
+            <div class="foot">در صورت عدم دسترسی مستقیم به سامانه‌های داخلی، دریافت داده از طریق فایل/اکسل/CSV یا API سازمانی انجام می‌شود.</div>
+            <aside class="notes">
+              این اسلاید را خیلی شفاف بگویید: ما داده غلط تولید نمی‌کنیم.
+              هر چه کیفیت و پوشش داده بهتر باشد، تحلیل دقیق‌تر و هشدارها قابل اتکاتر می‌شود.
+            </aside>
+          </div>
+          <div class="heroArt">
+            <svg class="bgSVG" viewBox="0 0 1200 750" xmlns="http://www.w3.org/2000/svg" role="img">
+              <rect width="1200" height="750" fill="#070A12"/>
+              <circle cx="320" cy="560" r="280" fill="#20E3B2" opacity="0.16"/>
+              <circle cx="960" cy="220" r="250" fill="#00D4FF" opacity="0.14"/>
+
+              <g transform="translate(170,150)" opacity="0.95">
+                <rect x="0" y="0" width="860" height="450" rx="28" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
+
+                <!-- Data layers -->
+                <g transform="translate(70,80)">
+                  <rect x="0" y="0" width="720" height="80" rx="18" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="0" y="100" width="720" height="80" rx="18" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="0" y="200" width="720" height="80" rx="18" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="0" y="300" width="720" height="80" rx="18" fill="rgba(255,255,255,0.05)"/>
+
+                  <g font-family="Vazirmatn" fill="#fff" opacity="0.78" font-size="22">
+                    <text x="26" y="52">۱) تردد (Access/Bio)</text>
+                    <text x="26" y="152">۲) ساختار سازمانی</text>
+                    <text x="26" y="252">۳) مرخصی/مأموریت/اضافه‌کار</text>
+                    <text x="26" y="352">۴) قوانین و سیاست‌ها</text>
+                  </g>
+
+                  <g opacity="0.9">
+                    <circle cx="680" cy="40" r="10" fill="#00D4FF" fill-opacity="0.65"/>
+                    <circle cx="680" cy="140" r="10" fill="#20E3B2" fill-opacity="0.65"/>
+                    <circle cx="680" cy="240" r="10" fill="#FFB020" fill-opacity="0.70"/>
+                    <circle cx="680" cy="340" r="10" fill="#7C5CFF" fill-opacity="0.65"/>
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: Architecture -->
+      <section data-transition="convex">
+        <div class="card">
+          <h2>معماری پیشنهادی برای اجرا</h2>
+          <div class="grid g2" style="align-items:start;">
+            <div>
+              <ul>
+                <li class="fragment"><b>Frontend وب</b>: داشبوردها، گزارش‌ها، تعامل کاربر (RTL + ریسپانسیو).</li>
+                <li class="fragment"><b>API و منطق کسب‌وکار</b>: سیاست‌ها، محاسبات کارکرد، مدیریت درخواست‌ها.</li>
+                <li class="fragment"><b>لایه تحلیل</b>: قواعد + ML (در صورت نیاز)، نمره ریسک، تشخیص ناهنجاری.</li>
+                <li class="fragment"><b>پایگاه داده</b>: ثبت رخدادها، تاریخچه، لاگ‌ها، گزارش‌گیری سریع.</li>
+                <li class="fragment"><b>امنیت</b>: RBAC، لاگ ممیزی، رمزگذاری، سیاست نگهداشت داده.</li>
+              </ul>
+              <aside class="notes">
+                بگویید دمو UI است. این معماری، مسیر تبدیل دمو به سامانه عملیاتی است.
+                قابلیت استقرار On-Prem داخل زیرساخت سازمان وجود دارد.
+              </aside>
+            </div>
+            <div class="heroArt">
+              <!-- Architecture diagram as SVG -->
+              <svg class="bgSVG" viewBox="0 0 1200 750" xmlns="http://www.w3.org/2000/svg" role="img">
+                <defs>
+                  <linearGradient id="s8" x1="0" x2="1">
+                    <stop offset="0" stop-color="#7C5CFF" stop-opacity="0.45"/>
+                    <stop offset="1" stop-color="#00D4FF" stop-opacity="0.30"/>
+                  </linearGradient>
+                </defs>
+                <rect width="1200" height="750" fill="#070A12"/>
+                <circle cx="240" cy="200" r="250" fill="url(#s8)" opacity="0.28"/>
+                <circle cx="980" cy="560" r="280" fill="#20E3B2" opacity="0.13"/>
+
+                <g transform="translate(150,120)" opacity="0.95">
+                  <rect x="0" y="0" width="900" height="510" rx="28" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
+
+                  <!-- blocks -->
+                  <g font-family="Vazirmatn" fill="#fff" opacity="0.82" font-size="20">
+                    <rect x="60" y="70" width="280" height="90" rx="18" fill="rgba(255,255,255,0.05)"/>
+                    <text x="86" y="125">Frontend وب (Dashboard)</text>
+
+                    <rect x="400" y="70" width="280" height="90" rx="18" fill="rgba(255,255,255,0.05)"/>
+                    <text x="442" y="125">API / Business Logic</text>
+
+                    <rect x="740" y="70" width="100" height="90" rx="18" fill="rgba(255,255,255,0.05)"/>
+                    <text x="758" y="125" font-size="18">Auth</text>
+
+                    <rect x="220" y="220" width="320" height="100" rx="18" fill="rgba(255,255,255,0.05)"/>
+                    <text x="258" y="275">لایه تحلیل (Rules/ML)</text>
+
+                    <rect x="590" y="220" width="250" height="100" rx="18" fill="rgba(255,255,255,0.05)"/>
+                    <text x="630" y="275">Notification</text>
+
+                    <rect x="180" y="390" width="660" height="90" rx="18" fill="rgba(255,255,255,0.05)"/>
+                    <text x="212" y="446">Database + Audit Logs + Reporting</text>
+                  </g>
+
+                  <!-- arrows -->
+                  <g stroke="#00D4FF" stroke-width="4" opacity="0.60" fill="none">
+                    <path d="M340 115H400"/>
+                    <path d="M680 115H740"/>
+                    <path d="M540 160V220"/>
+                    <path d="M465 320V390"/>
+                    <path d="M715 320V390"/>
+                  </g>
+
+                  <!-- data inputs -->
+                  <g opacity="0.9">
+                    <rect x="60" y="390" width="90" height="90" rx="18" fill="rgba(255,255,255,0.05)"/>
+                    <rect x="60" y="260" width="90" height="110" rx="18" fill="rgba(255,255,255,0.05)"/>
+                    <g font-family="Vazirmatn" fill="#fff" opacity="0.72" font-size="16">
+                      <text x="76" y="318">تردد</text>
+                      <text x="74" y="345">HR</text>
+                      <text x="74" y="442">Policy</text>
+                    </g>
+                    <g stroke="#7C5CFF" stroke-width="3" opacity="0.55" fill="none">
+                      <path d="M150 315H220"/>
+                      <path d="M150 435H180"/>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 9: Security -->
+      <section data-transition="fade">
+        <div class="grid g2" style="align-items:start;">
+          <div class="card">
+            <h2>امنیت، محرمانگی و ممیزی</h2>
+            <ul>
+              <li class="fragment">احراز هویت و مدیریت نشست (SSO در صورت وجود زیرساخت سازمان).</li>
+              <li class="fragment">مدیریت نقش‌ها (RBAC) و تفکیک دسترسی به گزارش‌ها و داده‌های فردی.</li>
+              <li class="fragment">ثبت لاگ ممیزی (Audit Log): مشاهده/ویرایش/تأیید/رد.</li>
+              <li class="fragment">رمزگذاری داده‌های حساس (در مسیر و در ذخیره‌سازی) و سیاست نگهداشت.</li>
+              <li class="fragment">قابلیت استقرار On-Prem برای کنترل کامل داده‌ها داخل سازمان.</li>
+            </ul>
+            <aside class="notes">
+              این بخش برای سازمان‌های حساس کلیدی است: بگویید داده‌ها داخل سازمان می‌مانند و لاگ ممیزی داریم.
+              همچنین سطح دسترسی به داده فردی محدود و کنترل‌شده است.
+            </aside>
+          </div>
+          <div class="heroArt">
+            <svg class="bgSVG" viewBox="0 0 1200 750" xmlns="http://www.w3.org/2000/svg" role="img">
+              <rect width="1200" height="750" fill="#070A12"/>
+              <circle cx="300" cy="560" r="290" fill="#00D4FF" opacity="0.14"/>
+              <circle cx="980" cy="210" r="250" fill="#7C5CFF" opacity="0.18"/>
+
+              <g transform="translate(240,170)" opacity="0.95">
+                <rect x="0" y="0" width="720" height="410" rx="28" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
+
+                <!-- Shield -->
+                <g transform="translate(300,70)" opacity="0.95">
+                  <path d="M60 0 L120 30 V95 C120 150 88 190 60 205 C32 190 0 150 0 95 V30 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+                  <path d="M60 30 L60 155" stroke="#20E3B2" stroke-width="5" opacity="0.75"/>
+                  <path d="M30 95 L60 125 L100 70" stroke="#20E3B2" stroke-width="6" fill="none" opacity="0.75"/>
+                </g>
+
+                <!-- Security bullets -->
+                <g font-family="Vazirmatn" fill="#fff" opacity="0.78" font-size="20">
+                  <text x="60" y="250">• RBAC + Audit Log</text>
+                  <text x="60" y="290">• Encryption in Transit/At Rest</text>
+                  <text x="60" y="330">• On-Prem Deployment Option</text>
+                  <text x="60" y="370">• Data Retention Policy</text>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 10: Hardware & infra -->
+      <section data-transition="slide">
+        <div class="card">
+          <h2>زیرساخت و سخت‌افزار پیشنهادی</h2>
+          <div class="grid g2" style="align-items:start;">
+            <div>
+              <h3>سناریوی استقرار</h3>
+              <ul>
+                <li class="fragment"><b>On-Prem</b> (پیشنهادی برای داده‌های حساس): داخل دیتاسنتر سازمان.</li>
+                <li class="fragment"><b>Private Cloud</b> (در صورت وجود): مقیاس‌پذیری و HA.</li>
+              </ul>
+
+              <h3 style="margin-top:12px;">حداقل منابع برای نسخه سازمانی</h3>
+              <ul>
+                <li class="fragment">سرور اپلیکیشن: 8 vCPU، رم 16–32GB، ذخیره‌سازی SSD.</li>
+                <li class="fragment">پایگاه داده: SSD سریع، بکاپ‌گیری منظم، مانیتورینگ.</li>
+                <li class="fragment">(اختیاری) نود تحلیل/ML جداگانه در صورت افزایش بار تحلیلی.</li>
+              </ul>
+
+              <div class="foot">اعداد دقیق با تعداد پرسنل، حجم رکورد تردد، و نیازهای HA تنظیم می‌شود.</div>
+              <aside class="notes">
+                اینجا درباره مقیاس صحبت کنید: با تعداد کارکنان و رکوردهای روزانه، منابع دقیق‌تر تعیین می‌شود.
+                ولی برای شروع، یک سرور اپ و یک سرور DB یا VMهای جدا حداقل پیشنهاد می‌شود.
+              </aside>
+            </div>
+
+            <div class="heroArt">
+              <svg class="bgSVG" viewBox="0 0 1200 750" xmlns="http://www.w3.org/2000/svg" role="img">
+                <rect width="1200" height="750" fill="#070A12"/>
+                <circle cx="320" cy="220" r="260" fill="#FFB020" opacity="0.12"/>
+                <circle cx="980" cy="560" r="300" fill="#20E3B2" opacity="0.12"/>
+
+                <g transform="translate(210,140)" opacity="0.95">
+                  <rect x="0" y="0" width="780" height="470" rx="28" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
+
+                  <!-- Server rack illustration -->
+                  <g transform="translate(120,80)">
+                    <rect x="0" y="0" width="220" height="310" rx="22" fill="rgba(255,255,255,0.05)"/>
+                    <rect x="260" y="0" width="220" height="310" rx="22" fill="rgba(255,255,255,0.05)"/>
+
+                    <g opacity="0.9">
+                      <rect x="22" y="26" width="176" height="36" rx="12" fill="rgba(255,255,255,0.05)"/>
+                      <rect x="22" y="78" width="176" height="36" rx="12" fill="rgba(255,255,255,0.05)"/>
+                      <rect x="22" y="130" width="176" height="36" rx="12" fill="rgba(255,255,255,0.05)"/>
+                      <rect x="22" y="182" width="176" height="36" rx="12" fill="rgba(255,255,255,0.05)"/>
+                      <rect x="22" y="234" width="176" height="36" rx="12" fill="rgba(255,255,255,0.05)"/>
+
+                      <rect x="282" y="26" width="176" height="36" rx="12" fill="rgba(255,255,255,0.05)"/>
+                      <rect x="282" y="78" width="176" height="36" rx="12" fill="rgba(255,255,255,0.05)"/>
+                      <rect x="282" y="130" width="176" height="36" rx="12" fill="rgba(255,255,255,0.05)"/>
+                      <rect x="282" y="182" width="176" height="36" rx="12" fill="rgba(255,255,255,0.05)"/>
+                      <rect x="282" y="234" width="176" height="36" rx="12" fill="rgba(255,255,255,0.05)"/>
+
+                      <circle cx="190" cy="44" r="6" fill="#20E3B2" fill-opacity="0.7"/>
+                      <circle cx="450" cy="44" r="6" fill="#00D4FF" fill-opacity="0.65"/>
+                    </g>
+
+                    <g font-family="Vazirmatn" fill="#fff" opacity="0.78" font-size="18">
+                      <text x="62" y="340">App / API</text>
+                      <text x="332" y="340">Database</text>
+                    </g>
+                  </g>
+
+                  <!-- Labels -->
+                  <g font-family="Vazirmatn" fill="#fff" opacity="0.78" font-size="20">
+                    <text x="80" y="430">On-Prem / Private Cloud</text>
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 11: Tech stack -->
+      <section data-transition="fade">
+        <div class="grid g2" style="align-items:start;">
+          <div class="card">
+            <h2>پشته فناوری پیشنهادی (استاندارد و قابل پشتیبانی)</h2>
+            <table>
+              <thead>
+                <tr><th>لایه</th><th>پیشنهاد</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Frontend</td><td>React / Next.js + Tailwind (RTL) + نمودارها</td></tr>
+                <tr><td>Backend</td><td>Node.js یا Python (FastAPI) + REST/GraphQL</td></tr>
+                <tr><td>DB</td><td>PostgreSQL (گزارش‌گیری و تراکنش) + Redis (کش)</td></tr>
+                <tr><td>Analytics</td><td>Rules Engine + ML (در صورت نیاز) + Batch/Streaming</td></tr>
+                <tr><td>DevOps</td><td>Docker + CI/CD + Monitoring (Prometheus/Grafana)</td></tr>
+                <tr><td>Security</td><td>RBAC, Audit Log, TLS, Secrets Management</td></tr>
+              </tbody>
+            </table>
+            <div class="foot">نسخه اجرایی با سیاست‌های فناوری و امنیتی سازمان تطبیق داده می‌شود.</div>
+            <aside class="notes">
+              تأکید کنید انتخاب‌ها استاندارد و نگهداری‌پذیرند.
+              اگر سازمان محدودیت نرم‌افزاری دارد، می‌توانیم با استک‌های مورد تاییدشان تطبیق بدهیم.
+            </aside>
+          </div>
+          <div class="heroArt">
+            <svg class="bgSVG" viewBox="0 0 1200 750" xmlns="http://www.w3.org/2000/svg" role="img">
+              <rect width="1200" height="750" fill="#070A12"/>
+              <circle cx="320" cy="560" r="300" fill="#7C5CFF" opacity="0.16"/>
+              <circle cx="980" cy="220" r="260" fill="#00D4FF" opacity="0.14"/>
+
+              <!-- Stack blocks -->
+              <g transform="translate(280,120)" opacity="0.95">
+                <rect x="0" y="0" width="640" height="510" rx="28" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
+                <g transform="translate(90,60)">
+                  <rect x="0" y="0" width="460" height="70" rx="18" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="0" y="90" width="460" height="70" rx="18" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="0" y="180" width="460" height="70" rx="18" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="0" y="270" width="460" height="70" rx="18" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="0" y="360" width="460" height="70" rx="18" fill="rgba(255,255,255,0.05)"/>
+
+                  <g font-family="Vazirmatn" fill="#fff" opacity="0.78" font-size="22">
+                    <text x="26" y="46">UI / Dashboard</text>
+                    <text x="26" y="136">API / Services</text>
+                    <text x="26" y="226">Database</text>
+                    <text x="26" y="316">Analytics</text>
+                    <text x="26" y="406">Ops + Security</text>
+                  </g>
+
+                  <g opacity="0.85">
+                    <circle cx="430" cy="35" r="10" fill="#00D4FF" fill-opacity="0.65"/>
+                    <circle cx="430" cy="125" r="10" fill="#20E3B2" fill-opacity="0.65"/>
+                    <circle cx="430" cy="215" r="10" fill="#FFB020" fill-opacity="0.65"/>
+                    <circle cx="430" cy="305" r="10" fill="#7C5CFF" fill-opacity="0.65"/>
+                    <circle cx="430" cy="395" r="10" fill="#FF4D6D" fill-opacity="0.60"/>
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 12: Implementation plan -->
+      <section data-transition="slide">
+        <div class="card">
+          <h2>نقشه راه اجرا (از دمو تا عملیاتی)</h2>
+          <div class="grid g2" style="align-items:start;">
+            <div>
+              <ol>
+                <li class="fragment">تحلیل نیازمندی و قوانین سازمانی، تعریف KPI و سناریوها.</li>
+                <li class="fragment">دریافت داده و یکپارچه‌سازی (ETL/Sync) و تعریف مدل داده.</li>
+                <li class="fragment">پیاده‌سازی هسته محاسبه کارکرد و گزارش‌گیری پایه.</li>
+                <li class="fragment">افزودن تحلیل هوشمند (Rules/ML) و هشدارهای اقدام‌پذیر.</li>
+                <li class="fragment">سخت‌گیری امنیتی، لاگ ممیزی، تست عملکرد، استقرار و آموزش.</li>
+              </ol>
+              <aside class="notes">
+                اینجا حس کنترل بدهید: ما فازبندی داریم، قابل تحویل مرحله‌ای است.
+                سازمان می‌تواند بعد از هر فاز بازخورد بدهد و تنظیمات سیاست‌ها دقیق‌تر شود.
+              </aside>
+            </div>
+            <div class="heroArt">
+              <!-- Timeline diagram -->
+              <svg class="bgSVG" viewBox="0 0 1200 750" xmlns="http://www.w3.org/2000/svg" role="img">
+                <rect width="1200" height="750" fill="#070A12"/>
+                <circle cx="260" cy="220" r="240" fill="#00D4FF" opacity="0.12"/>
+                <circle cx="980" cy="560" r="300" fill="#7C5CFF" opacity="0.18"/>
+
+                <g transform="translate(160,220)" opacity="0.95">
+                  <rect x="0" y="0" width="880" height="310" rx="28" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
+
+                  <g transform="translate(70,140)" stroke="#00D4FF" stroke-width="6" opacity="0.6" fill="none">
+                    <path d="M0 0H740"/>
+                  </g>
+
+                  <g transform="translate(70,140)" opacity="0.95">
+                    <circle cx="0" cy="0" r="12" fill="#00D4FF"/>
+                    <circle cx="185" cy="0" r="12" fill="#20E3B2"/>
+                    <circle cx="370" cy="0" r="12" fill="#FFB020"/>
+                    <circle cx="555" cy="0" r="12" fill="#7C5CFF"/>
+                    <circle cx="740" cy="0" r="12" fill="#FF4D6D"/>
+                  </g>
+
+                  <g font-family="Vazirmatn" fill="#fff" opacity="0.78" font-size="18">
+                    <text x="50" y="70">فاز ۱</text>
+                    <text x="232" y="70">فاز ۲</text>
+                    <text x="420" y="70">فاز ۳</text>
+                    <text x="605" y="70">فاز ۴</text>
+                    <text x="790" y="70">فاز ۵</text>
+
+                    <text x="40" y="120" opacity="0.65">نیازمندی</text>
+                    <text x="214" y="120" opacity="0.65">داده/ETL</text>
+                    <text x="398" y="120" opacity="0.65">هسته</text>
+                    <text x="580" y="120" opacity="0.65">هوشمندی</text>
+                    <text x="756" y="120" opacity="0.65">استقرار</text>
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 13: Success metrics -->
+      <section data-transition="fade">
+        <div class="grid g2" style="align-items:start;">
+          <div class="card">
+            <h2>معیارهای موفقیت (KPIs)</h2>
+            <ul>
+              <li class="fragment">کاهش زمان تهیه گزارش‌های مدیریتی (از ساعت/روز به دقیقه).</li>
+              <li class="fragment">کاهش خطای انسانی و ناسازگاری در محاسبه کارکرد.</li>
+              <li class="fragment">افزایش کشف زودهنگام الگوهای ریسک (تأخیر/غیبت غیرعادی).</li>
+              <li class="fragment">افزایش شفافیت و رضایت کاربران (کارمند/HR/مدیر).</li>
+              <li class="fragment">پایداری سامانه: SLA، مانیتورینگ، لاگ و قابلیت بازیابی.</li>
+            </ul>
+            <aside class="notes">
+              معیارها را قابل اندازه‌گیری بیان کنید. پیشنهاد دهید قبل از اجرا، خط مبنا (Baseline) استخراج شود.
+              سپس در دوره پایلوت با همان معیارها مقایسه انجام شود.
+            </aside>
+          </div>
+          <div class="heroArt">
+            <svg class="bgSVG" viewBox="0 0 1200 750" xmlns="http://www.w3.org/2000/svg" role="img">
+              <rect width="1200" height="750" fill="#070A12"/>
+              <circle cx="280" cy="560" r="310" fill="#20E3B2" opacity="0.14"/>
+              <circle cx="980" cy="200" r="250" fill="#00D4FF" opacity="0.14"/>
+
+              <g transform="translate(190,150)" opacity="0.95">
+                <rect x="0" y="0" width="820" height="450" rx="28" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
+
+                <!-- KPI bars -->
+                <g transform="translate(80,90)" opacity="0.95">
+                  <rect x="0" y="0" width="660" height="70" rx="18" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="0" y="100" width="660" height="70" rx="18" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="0" y="200" width="660" height="70" rx="18" fill="rgba(255,255,255,0.05)"/>
+
+                  <rect x="20" y="18" width="520" height="34" rx="14" fill="#20E3B2" fill-opacity="0.55"/>
+                  <rect x="20" y="118" width="460" height="34" rx="14" fill="#00D4FF" fill-opacity="0.45"/>
+                  <rect x="20" y="218" width="560" height="34" rx="14" fill="#7C5CFF" fill-opacity="0.50"/>
+
+                  <g font-family="Vazirmatn" fill="#fff" opacity="0.78" font-size="18">
+                    <text x="22" y="-10">کاهش زمان گزارش</text>
+                    <text x="22" y="90">کاهش خطای محاسبه</text>
+                    <text x="22" y="190">کشف الگوهای ریسک</text>
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 14: Closing -->
+      <section data-transition="zoom">
+        <div class="grid g2" style="align-items:stretch;">
+          <div class="card">
+            <h2>جمع‌بندی و پیشنهاد پایلوت</h2>
+            <ul>
+              <li class="fragment">دموی UI آماده است و تجربه کاربری/داشبوردها را نشان می‌دهد.</li>
+              <li class="fragment">برای اجرای واقعی: داده تردد + ساختار سازمانی + قوانین و سیاست‌ها لازم است.</li>
+              <li class="fragment">پیشنهاد: اجرای پایلوت در یک واحد منتخب، استخراج Baseline و سنجش KPIها.</li>
+              <li class="fragment">پس از پایلوت: تعمیم به کل سازمان و توسعه تحلیل‌های پیشرفته.</li>
+            </ul>
+            <div class="metaRow" style="margin-top:12px;">
+              <span class="badge">شبکه هوشمند ابتکار ویستا</span>
+              <span class="badge">پلتفرم‌های هوش مصنوعی و تحلیل داده</span>
+            </div>
+            <aside class="notes">
+              اینجا درخواست مشخص بدهید: یک پایلوت رسمی با داده واقعی.
+              بگویید خروجی پایلوت شامل داشبوردهای عملیاتی، گزارش‌های مدیریتی و معیارهای سنجش است.
+            </aside>
+          </div>
+          <div class="heroArt">
+            <svg class="bgSVG" viewBox="0 0 1200 750" xmlns="http://www.w3.org/2000/svg" role="img">
+              <rect width="1200" height="750" fill="#070A12"/>
+              <circle cx="320" cy="250" r="260" fill="#7C5CFF" opacity="0.20"/>
+              <circle cx="980" cy="520" r="310" fill="#00D4FF" opacity="0.14"/>
+              <g transform="translate(220,160)" opacity="0.95">
+                <rect x="0" y="0" width="760" height="430" rx="28" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
+
+                <!-- handshake-like abstract -->
+                <g transform="translate(160,150)" opacity="0.95">
+                  <rect x="0" y="40" width="220" height="90" rx="45" fill="#20E3B2" fill-opacity="0.30"/>
+                  <rect x="220" y="40" width="220" height="90" rx="45" fill="#00D4FF" fill-opacity="0.22"/>
+                  <circle cx="220" cy="85" r="36" fill="#7C5CFF" fill-opacity="0.28"/>
+                  <path d="M120 85h200" stroke="rgba(255,255,255,0.5)" stroke-width="4" opacity="0.6"/>
+                </g>
+
+                <g font-family="Vazirmatn" fill="#fff" opacity="0.8" font-size="26">
+                  <text x="210" y="340">پایلوت → سنجش KPI → توسعه سازمانی</text>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/notes/notes.js"></script>
+
+  <script>
+    // Initialize Reveal
+    Reveal.initialize({
+      hash: true,
+      transition: 'slide',
+      backgroundTransition: 'fade',
+      controls: true,
+      progress: true,
+      center: false,
+      width: 1280,
+      height: 720,
+      margin: 0.06,
+      minScale: 0.4,
+      maxScale: 1.2,
+      plugins: [ RevealNotes ],
+      // RTL experience improvements
+      navigationMode: 'default'
+    });
+
+    // Small UX: tap-to-next on touch devices
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a, button, input, textarea, select');
+      if (a) return;
+      // Prevent accidental advance when selecting text
+      if (window.getSelection && String(window.getSelection()).length) return;
+    });
+  </script>
+</body>
+</html>
