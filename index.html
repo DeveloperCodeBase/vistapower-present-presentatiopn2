@@ -151,6 +151,51 @@
     /* RTL fixes for Reveal */
     .reveal .slides section .fragment{ display:block; }
 
+    /* Timeline pager */
+    .deckTimeline{
+      position: fixed;
+      inset-inline: 20px;
+      bottom: 18px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(7,10,18,0.55);
+      backdrop-filter: blur(10px);
+      z-index: 20;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .deckTimeline strong{ color: var(--text); }
+    .timelineTrack{
+      display:flex;
+      align-items:center;
+      gap: 6px;
+      flex: 1;
+      min-width: 160px;
+    }
+    .timelineDot{
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.12);
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+    .timelineDot.past{
+      background: rgba(0,212,255,0.45);
+      border-color: rgba(0,212,255,0.7);
+    }
+    .timelineDot.active{
+      transform: scale(1.25);
+      background: rgba(124,92,255,0.9);
+      border-color: rgba(124,92,255,1);
+      box-shadow: 0 0 0 6px rgba(124,92,255,0.18);
+    }
+
     /* Responsive scaling */
     @media (max-width: 900px){
       .reveal .slides section{ padding: 18px 16px; }
@@ -164,6 +209,8 @@
       .heroArt{ display:none; }
       .metaRow{ gap:6px; }
       .badge{ font-size: 14px; }
+      .deckTimeline{ flex-direction: column; align-items: flex-start; }
+      .timelineTrack{ width: 100%; flex-wrap: wrap; }
     }
   </style>
 </head>
@@ -1091,6 +1138,34 @@
       // RTL experience improvements
       navigationMode: 'default'
     });
+
+    const totalSlides = document.querySelectorAll('.slides > section').length;
+    const timeline = document.createElement('div');
+    timeline.className = 'deckTimeline';
+    timeline.innerHTML = `
+      <span class="timelineLabel">صفحه <strong>1</strong> از <strong>${totalSlides}</strong></span>
+      <div class="timelineTrack"></div>
+    `;
+    document.body.appendChild(timeline);
+    const track = timeline.querySelector('.timelineTrack');
+    const dots = [];
+    for (let i = 0; i < totalSlides; i += 1) {
+      const dot = document.createElement('span');
+      dot.className = 'timelineDot';
+      track.appendChild(dot);
+      dots.push(dot);
+    }
+
+    const updateTimeline = () => {
+      const idx = Reveal.getIndices().h;
+      timeline.querySelector('.timelineLabel strong').textContent = idx + 1;
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === idx);
+        dot.classList.toggle('past', i < idx);
+      });
+    };
+    Reveal.on('ready', updateTimeline);
+    Reveal.on('slidechanged', updateTimeline);
 
     // Small UX: tap-to-next on touch devices
     document.addEventListener('click', (e) => {
