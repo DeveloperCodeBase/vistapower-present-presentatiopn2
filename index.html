@@ -80,6 +80,18 @@
     .dot{ width:10px; height:10px; border-radius:50%; background: var(--accent2); box-shadow: 0 0 0 6px rgba(0,212,255,.12); }
 
     .metaRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px; }
+    .brandRow{ display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom: 8px; }
+    .logoWrap{
+      width: 78px; height: 78px; border-radius: 18px;
+      border: 1px solid var(--stroke); background: rgba(255,255,255,.08);
+      display:flex; align-items:center; justify-content:center;
+      box-shadow: 0 14px 32px rgba(0,0,0,.4);
+    }
+    .logoWrap img{ width: 56px; height: 56px; object-fit: contain; }
+    .presenter{
+      font-size: 18px; color: var(--muted);
+      display:flex; flex-direction:column; gap:2px;
+    }
 
     .heroArt{
       width: 100%;
@@ -128,6 +140,7 @@
 
     /* Small print */
     .foot{ margin-top: 10px; font-size: 14px; color: rgba(244,247,255,.6); }
+    .sectionTitle{ font-size: 18px; color: var(--muted); margin-bottom: 6px; }
 
     /* RTL fixes for Reveal */
     .reveal .slides section .fragment{ display:block; }
@@ -151,15 +164,25 @@
       <section data-transition="zoom">
         <div class="grid g2" style="align-items:stretch;">
           <div class="card">
-            <div class="kicker">شرکت شبکه هوشمند ابتکار ویستا</div>
+            <div class="brandRow">
+              <div class="logoWrap" aria-label="لوگوی شرکت شبکه هوشمند ابتکار ویستا">
+                <img src="assets/logo-vista-placeholder.svg" alt="لوگوی شبکه هوشمند ابتکار ویستا">
+              </div>
+              <div class="presenter">
+                <span>شرکت شبکه هوشمند ابتکار ویستا</span>
+                <span>ارائه‌دهنده: مسعود بخشی (مدیرعامل)</span>
+              </div>
+            </div>
+            <div class="kicker">ارائه علمی و مدیریتی برای تصمیم‌سازی داده‌محور</div>
             <h1>پلتفرم تحلیل هوشمند حضور و غیاب</h1>
             <p>
-              دمو تحت وب برای پایش حضور، تحلیل الگوها، گزارش‌های مدیریتی و افزایش بهره‌وری سازمانی.
+              دمو تحت وب برای پایش حضور، تحلیل الگوها، گزارش‌های مدیریتی و ارتقای بهره‌وری سازمانی
+              با تمرکز بر استانداردهای بین‌المللی امنیت، تحلیل و تجربه کاربری.
             </p>
             <div class="metaRow">
-              <span class="badge"><span class="dot"></span>نسخه دمو | UI کامل</span>
-              <span class="badge">طراحی ریسپانسیو</span>
-              <span class="badge">تحلیل‌محور و قابل توسعه</span>
+              <span class="badge"><span class="dot"></span>نسخه دمو | UI/UX کامل</span>
+              <span class="badge">RTL + طراحی ریسپانسیو</span>
+              <span class="badge">معماری تحلیل‌محور و مقیاس‌پذیر</span>
             </div>
             <div class="foot">ارائه برای شرکت برق منطقه‌ای استان سمنان</div>
             <aside class="notes">
@@ -367,9 +390,9 @@
           <div class="card">
             <h2>نقش‌ها و سطح دسترسی</h2>
             <ul>
-              <li class="fragment"><b>مدیر ارشد</b>: دید کلان، KPIها، روندها، هشدارها، خروجی مدیریتی.</li>
-              <li class="fragment"><b>منابع انسانی</b>: کنترل سیاست‌ها، شیفت‌ها، درخواست‌ها، تایید/رد، گزارش‌های عملیاتی.</li>
-              <li class="fragment"><b>کارمند</b>: مشاهده کارکرد، ثبت درخواست‌ها، تاریخچه و اعلان‌ها.</li>
+              <li class="fragment"><b>مدیر ارشد</b>: نمای ۳۶۰ درجه، KPIهای راهبردی، هشدارهای قابل اقدام، خروجی مدیریتی.</li>
+              <li class="fragment"><b>منابع انسانی</b>: کنترل سیاست‌ها، شیفت‌ها، درخواست‌ها، تایید/رد، گزارش‌های تحلیلی.</li>
+              <li class="fragment"><b>کارمند</b>: پنل شخصی، ثبت درخواست‌ها، شفافیت کارکرد و اعلان‌های سیستمی.</li>
             </ul>
             <div class="btnRow">
               <span class="btn primary">ورود</span>
@@ -411,6 +434,63 @@
               </g>
             </svg>
           </div>
+        </div>
+      </section>
+
+      <!-- Slide 4.5: Login credentials -->
+      <section data-transition="fade">
+        <div class="card">
+          <h2>حساب‌های دمو و سطح دسترسی</h2>
+          <p class="sectionTitle">برای مرور دقیق منوها و امکانات، از حساب‌های زیر استفاده می‌شود.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>نقش کاربری</th>
+                <th>نام کاربری</th>
+                <th>کلمه عبور</th>
+                <th>دسترسی‌ها</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>مدیر سیستم</b></td>
+                <td><code>admin</code></td>
+                <td><code>Admin@123</code></td>
+                <td>دسترسی کامل، تنظیمات امنیتی</td>
+              </tr>
+              <tr>
+                <td><b>مدیر ارشد (CEO)</b></td>
+                <td><code>exec1</code></td>
+                <td><code>Exec@123</code></td>
+                <td>داشبورد مدیریتی و تحلیل استراتژیک</td>
+              </tr>
+              <tr>
+                <td><b>مدیر منابع انسانی</b></td>
+                <td><code>hr1</code></td>
+                <td><code>Hr@123</code></td>
+                <td>مدیریت پرسنل، مرخصی‌ها، تحلیل الگوها</td>
+              </tr>
+              <tr>
+                <td><b>مدیر عملیات</b></td>
+                <td><code>ops1</code></td>
+                <td><code>Ops@123</code></td>
+                <td>آمادگی عملیاتی، شیفت‌ها، ظرفیت واحدها</td>
+              </tr>
+              <tr>
+                <td><b>اپراتور دیسپاچ</b></td>
+                <td><code>dispatch1</code></td>
+                <td><code>Dispatch@123</code></td>
+                <td>مانیتورینگ شیفت، ثبت وقایع</td>
+              </tr>
+              <tr>
+                <td><b>کارمند عادی</b></td>
+                <td><code>emp1</code></td>
+                <td><code>Emp@123</code></td>
+                <td>داشبورد شخصی، ثبت تردد، درخواست‌ها</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="foot">این اطلاعات صرفاً برای محیط دمو است و باید مطابق سیاست امنیتی سازمانی تغییر یابد.</div>
         </div>
       </section>
 
