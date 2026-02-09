@@ -59,14 +59,16 @@
     }
     .grid{ display:grid; gap:16px; direction: rtl; }
     .g2{ grid-template-columns: 1.05fr .95fr; align-items: stretch; }
+    .g2 > :first-child{ order: 2; }
+    .g2 > :last-child{ order: 1; }
     .g3{ grid-template-columns: repeat(3, 1fr); }
 
-    .kicker{ font-size: clamp(16px, 1.6vw, 18px); color: var(--muted); letter-spacing:.2px; }
-    h1{ font-size: clamp(34px, 3.8vw, 52px); line-height: 1.2; margin: 6px 0 8px; }
-    h2{ font-size: clamp(26px, 2.6vw, 34px); line-height: 1.35; margin: 0 0 12px; }
-    h3{ font-size: clamp(18px, 2vw, 22px); margin: 0 0 8px; }
+    .kicker{ font-size: clamp(16px, 1.6vw, 18px); color: var(--muted); letter-spacing:.2px; text-align: right; }
+    h1{ font-size: clamp(34px, 3.8vw, 52px); line-height: 1.2; margin: 6px 0 8px; text-align: right; }
+    h2{ font-size: clamp(26px, 2.6vw, 34px); line-height: 1.35; margin: 0 0 12px; text-align: right; }
+    h3{ font-size: clamp(18px, 2vw, 22px); margin: 0 0 8px; text-align: right; }
 
-    p, li{ font-size: clamp(16px, 1.7vw, 20px); line-height: 1.9; color: var(--muted); }
+    p, li{ font-size: clamp(16px, 1.7vw, 20px); line-height: 1.9; color: var(--muted); text-align: right; }
     ul{ margin: 8px 0 0; }
 
     .badge{
@@ -82,19 +84,20 @@
     .dot{ width:10px; height:10px; border-radius:50%; background: var(--accent2); box-shadow: 0 0 0 6px rgba(0,212,255,.12); }
 
     .metaRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px; }
-    .brandRow{ display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom: 8px; flex-wrap: wrap; }
+    .brandRow{ display:flex; align-items:center; justify-content:flex-start; gap:18px; margin-bottom: 10px; flex-wrap: wrap; }
     .logoWrap{
-      width: 78px; height: 78px; border-radius: 18px;
+      width: 88px; height: 88px; border-radius: 20px;
       border: 1px solid var(--stroke); background: rgba(255,255,255,.08);
       display:flex; align-items:center; justify-content:center;
       box-shadow: 0 14px 32px rgba(0,0,0,.4);
     }
-    .logoWrap img{ width: 56px; height: 56px; object-fit: contain; }
+    .logoWrap img{ width: 64px; height: 64px; object-fit: contain; }
     .presenter{
-      font-size: clamp(15px, 1.6vw, 18px);
+      font-size: clamp(16px, 1.8vw, 20px);
       color: var(--muted);
       display:flex; flex-direction:column; gap:2px;
     }
+    .presenter strong{ color: var(--text); font-weight: 700; }
 
     .heroArt{
       width: 100%;
@@ -143,7 +146,7 @@
     th{ color: var(--text); font-weight: 700; }
 
     /* Small print */
-    .foot{ margin-top: 10px; font-size: 14px; color: rgba(244,247,255,.6); }
+    .foot{ margin-top: 10px; font-size: 14px; color: rgba(244,247,255,.6); text-align: right; }
 
     /* RTL fixes for Reveal */
     .reveal .slides section .fragment{ display:block; }
@@ -154,7 +157,8 @@
       .g2{ grid-template-columns: 1fr; }
       .g3{ grid-template-columns: 1fr; }
       .heroArt{ aspect-ratio: 16/11; }
-      .brandRow{ justify-content: flex-start; }
+      .g2 > :first-child,
+      .g2 > :last-child{ order: 0; }
     }
     @media (max-width: 640px){
       .heroArt{ display:none; }
@@ -176,8 +180,8 @@
                 <img src="assets/logo-vista-placeholder.svg" alt="لوگوی شبکه هوشمند ابتکار ویستا">
               </div>
               <div class="presenter">
-                <span>شرکت شبکه هوشمند ابتکار ویستا</span>
-                <span>ارائه‌دهنده: مسعود بخشی (مدیرعامل)</span>
+                <span><strong>شبکه هوشمند ابتکار ویستا</strong></span>
+                <span>ارائه‌دهنده: <strong>مسعود بخشی</strong> (مدیرعامل)</span>
               </div>
             </div>
             <div class="kicker">ارائه علمی و مدیریتی برای تصمیم‌سازی داده‌محور</div>
@@ -368,22 +372,22 @@
                 <!-- UI mock: sidebar + content -->
                 <g transform="translate(160,120)" opacity="0.95">
                   <rect x="0" y="0" width="880" height="510" rx="28" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
-                  <rect x="0" y="0" width="220" height="510" rx="28" fill="rgba(255,255,255,0.05)"/>
-                  <g fill="#ffffff" opacity="0.75" font-family="Vazirmatn" font-size="18">
-                    <text x="160" y="60">منو</text>
-                    <text x="40" y="110">داشبورد</text>
-                    <text x="40" y="155">گزارش‌ها</text>
-                    <text x="40" y="200">کارکنان</text>
-                    <text x="40" y="245">درخواست‌ها</text>
-                    <text x="40" y="290">تنظیمات</text>
+                  <rect x="660" y="0" width="220" height="510" rx="28" fill="rgba(255,255,255,0.05)"/>
+                  <g fill="#ffffff" opacity="0.75" font-family="Vazirmatn" font-size="20">
+                    <text x="820" y="60" text-anchor="end">منو</text>
+                    <text x="820" y="110" text-anchor="end">داشبورد</text>
+                    <text x="820" y="155" text-anchor="end">گزارش‌ها</text>
+                    <text x="820" y="200" text-anchor="end">کارکنان</text>
+                    <text x="820" y="245" text-anchor="end">درخواست‌ها</text>
+                    <text x="820" y="290" text-anchor="end">تنظیمات</text>
                   </g>
-                  <rect x="260" y="40" width="590" height="70" rx="18" fill="rgba(255,255,255,0.05)"/>
-                  <rect x="260" y="130" width="280" height="150" rx="18" fill="rgba(255,255,255,0.05)"/>
-                  <rect x="570" y="130" width="280" height="150" rx="18" fill="rgba(255,255,255,0.05)"/>
-                  <rect x="260" y="300" width="590" height="180" rx="18" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="20" y="40" width="620" height="70" rx="18" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="20" y="130" width="300" height="150" rx="18" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="340" y="130" width="300" height="150" rx="18" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="20" y="300" width="620" height="180" rx="18" fill="rgba(255,255,255,0.05)"/>
 
                   <!-- highlight -->
-                  <rect x="22" y="92" width="176" height="44" rx="12" fill="#7C5CFF" fill-opacity="0.28" stroke="rgba(255,255,255,0.16)"/>
+                  <rect x="682" y="92" width="176" height="44" rx="12" fill="#7C5CFF" fill-opacity="0.28" stroke="rgba(255,255,255,0.16)"/>
                 </g>
               </svg>
             </div>
