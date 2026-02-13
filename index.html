@@ -43,6 +43,7 @@
 
     .reveal{ font-family: var(--r-main-font); }
     .reveal .slides{ text-align: right; }
+    .reveal .slides section{ direction: rtl; }
 
     /* Make content breathe */
     .reveal .slides section{ padding: 24px 28px; }
@@ -54,17 +55,20 @@
       border-radius: 22px;
       box-shadow: var(--shadow);
       padding: 18px 20px;
+      text-align: right;
     }
-    .grid{ display:grid; gap:14px; }
-    .g2{ grid-template-columns: 1.15fr .85fr; }
+    .grid{ display:grid; gap:16px; direction: rtl; }
+    .g2{ grid-template-columns: 1.05fr .95fr; align-items: stretch; }
+    .g2 > :first-child{ order: 2; }
+    .g2 > :last-child{ order: 1; }
     .g3{ grid-template-columns: repeat(3, 1fr); }
 
-    .kicker{ font-size: 18px; color: var(--muted); letter-spacing:.2px; }
-    h1{ font-size: 52px; line-height: 1.15; margin: 6px 0 8px; }
-    h2{ font-size: 34px; line-height: 1.25; margin: 0 0 12px; }
-    h3{ font-size: 22px; margin: 0 0 8px; }
+    .kicker{ font-size: clamp(16px, 1.6vw, 18px); color: var(--muted); letter-spacing:.2px; text-align: right; }
+    h1{ font-size: clamp(34px, 3.8vw, 52px); line-height: 1.2; margin: 6px 0 8px; text-align: right; }
+    h2{ font-size: clamp(26px, 2.6vw, 34px); line-height: 1.35; margin: 0 0 12px; text-align: right; }
+    h3{ font-size: clamp(18px, 2vw, 22px); margin: 0 0 8px; text-align: right; }
 
-    p, li{ font-size: 20px; line-height: 1.85; color: var(--muted); }
+    p, li{ font-size: clamp(16px, 1.7vw, 20px); line-height: 1.9; color: var(--muted); text-align: right; }
     ul{ margin: 8px 0 0; }
 
     .badge{
@@ -80,6 +84,20 @@
     .dot{ width:10px; height:10px; border-radius:50%; background: var(--accent2); box-shadow: 0 0 0 6px rgba(0,212,255,.12); }
 
     .metaRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px; }
+    .brandRow{ display:flex; align-items:center; justify-content:flex-start; gap:18px; margin-bottom: 10px; flex-wrap: wrap; }
+    .logoWrap{
+      width: 88px; height: 88px; border-radius: 20px;
+      border: 1px solid var(--stroke); background: rgba(255,255,255,.08);
+      display:flex; align-items:center; justify-content:center;
+      box-shadow: 0 14px 32px rgba(0,0,0,.4);
+    }
+    .logoWrap img{ width: 64px; height: 64px; object-fit: contain; }
+    .presenter{
+      font-size: clamp(16px, 1.8vw, 20px);
+      color: var(--muted);
+      display:flex; flex-direction:column; gap:2px;
+    }
+    .presenter strong{ color: var(--text); font-weight: 700; }
 
     .heroArt{
       width: 100%;
@@ -94,6 +112,7 @@
 
     /* Decorative SVG backgrounds per slide */
     .bgSVG{ position:absolute; inset:0; width:100%; height:100%; opacity:1; }
+    .heroArt text{ font-family: var(--r-main-font); }
 
     /* Mini KPI cards */
     .kpi{
@@ -127,19 +146,71 @@
     th{ color: var(--text); font-weight: 700; }
 
     /* Small print */
-    .foot{ margin-top: 10px; font-size: 14px; color: rgba(244,247,255,.6); }
+    .foot{ margin-top: 10px; font-size: 14px; color: rgba(244,247,255,.6); text-align: right; }
 
     /* RTL fixes for Reveal */
     .reveal .slides section .fragment{ display:block; }
 
+    /* Timeline pager */
+    .deckTimeline{
+      position: fixed;
+      inset-inline: 20px;
+      bottom: 18px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(7,10,18,0.55);
+      backdrop-filter: blur(10px);
+      z-index: 20;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .deckTimeline strong{ color: var(--text); }
+    .timelineTrack{
+      display:flex;
+      align-items:center;
+      gap: 6px;
+      flex: 1;
+      min-width: 160px;
+    }
+    .timelineDot{
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.12);
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+    .timelineDot.past{
+      background: rgba(0,212,255,0.45);
+      border-color: rgba(0,212,255,0.7);
+    }
+    .timelineDot.active{
+      transform: scale(1.25);
+      background: rgba(124,92,255,0.9);
+      border-color: rgba(124,92,255,1);
+      box-shadow: 0 0 0 6px rgba(124,92,255,0.18);
+    }
+
     /* Responsive scaling */
     @media (max-width: 900px){
-      h1{ font-size: 40px; }
-      h2{ font-size: 28px; }
-      p, li{ font-size: 18px; }
+      .reveal .slides section{ padding: 18px 16px; }
       .g2{ grid-template-columns: 1fr; }
       .g3{ grid-template-columns: 1fr; }
       .heroArt{ aspect-ratio: 16/11; }
+      .g2 > :first-child,
+      .g2 > :last-child{ order: 0; }
+    }
+    @media (max-width: 640px){
+      .heroArt{ display:none; }
+      .metaRow{ gap:6px; }
+      .badge{ font-size: 14px; }
+      .deckTimeline{ flex-direction: column; align-items: flex-start; }
+      .timelineTrack{ width: 100%; flex-wrap: wrap; }
     }
   </style>
 </head>
@@ -151,15 +222,25 @@
       <section data-transition="zoom">
         <div class="grid g2" style="align-items:stretch;">
           <div class="card">
-            <div class="kicker">شرکت شبکه هوشمند ابتکار ویستا</div>
+            <div class="brandRow">
+              <div class="logoWrap" aria-label="لوگوی شرکت شبکه هوشمند ابتکار ویستا">
+                <img src="assets/logo-vista-placeholder.svg" alt="لوگوی شبکه هوشمند ابتکار ویستا">
+              </div>
+              <div class="presenter">
+                <span><strong>شبکه هوشمند ابتکار ویستا</strong></span>
+                <span>ارائه‌دهنده: <strong>مسعود بخشی</strong> (مدیرعامل)</span>
+              </div>
+            </div>
+            <div class="kicker">ارائه علمی و مدیریتی برای تصمیم‌سازی داده‌محور</div>
             <h1>پلتفرم تحلیل هوشمند حضور و غیاب</h1>
             <p>
-              دمو تحت وب برای پایش حضور، تحلیل الگوها، گزارش‌های مدیریتی و افزایش بهره‌وری سازمانی.
+              دمو تحت وب برای پایش حضور، تحلیل الگوها، گزارش‌های مدیریتی و ارتقای بهره‌وری سازمانی
+              با تمرکز بر استانداردهای بین‌المللی امنیت، تحلیل و تجربه کاربری.
             </p>
             <div class="metaRow">
-              <span class="badge"><span class="dot"></span>نسخه دمو | UI کامل</span>
-              <span class="badge">طراحی ریسپانسیو</span>
-              <span class="badge">تحلیل‌محور و قابل توسعه</span>
+              <span class="badge"><span class="dot"></span>نسخه دمو | UI/UX کامل</span>
+              <span class="badge">RTL + طراحی ریسپانسیو</span>
+              <span class="badge">معماری تحلیل‌محور و مقیاس‌پذیر</span>
             </div>
             <div class="foot">ارائه برای شرکت برق منطقه‌ای استان سمنان</div>
             <aside class="notes">
@@ -338,22 +419,22 @@
                 <!-- UI mock: sidebar + content -->
                 <g transform="translate(160,120)" opacity="0.95">
                   <rect x="0" y="0" width="880" height="510" rx="28" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
-                  <rect x="0" y="0" width="220" height="510" rx="28" fill="rgba(255,255,255,0.05)"/>
-                  <g fill="#ffffff" opacity="0.75" font-family="Vazirmatn" font-size="18">
-                    <text x="160" y="60">منو</text>
-                    <text x="40" y="110">داشبورد</text>
-                    <text x="40" y="155">گزارش‌ها</text>
-                    <text x="40" y="200">کارکنان</text>
-                    <text x="40" y="245">درخواست‌ها</text>
-                    <text x="40" y="290">تنظیمات</text>
+                  <rect x="660" y="0" width="220" height="510" rx="28" fill="rgba(255,255,255,0.05)"/>
+                  <g fill="#ffffff" opacity="0.75" font-family="Vazirmatn" font-size="20">
+                    <text x="820" y="60" text-anchor="end">منو</text>
+                    <text x="820" y="110" text-anchor="end">داشبورد</text>
+                    <text x="820" y="155" text-anchor="end">گزارش‌ها</text>
+                    <text x="820" y="200" text-anchor="end">کارکنان</text>
+                    <text x="820" y="245" text-anchor="end">درخواست‌ها</text>
+                    <text x="820" y="290" text-anchor="end">تنظیمات</text>
                   </g>
-                  <rect x="260" y="40" width="590" height="70" rx="18" fill="rgba(255,255,255,0.05)"/>
-                  <rect x="260" y="130" width="280" height="150" rx="18" fill="rgba(255,255,255,0.05)"/>
-                  <rect x="570" y="130" width="280" height="150" rx="18" fill="rgba(255,255,255,0.05)"/>
-                  <rect x="260" y="300" width="590" height="180" rx="18" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="20" y="40" width="620" height="70" rx="18" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="20" y="130" width="300" height="150" rx="18" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="340" y="130" width="300" height="150" rx="18" fill="rgba(255,255,255,0.05)"/>
+                  <rect x="20" y="300" width="620" height="180" rx="18" fill="rgba(255,255,255,0.05)"/>
 
                   <!-- highlight -->
-                  <rect x="22" y="92" width="176" height="44" rx="12" fill="#7C5CFF" fill-opacity="0.28" stroke="rgba(255,255,255,0.16)"/>
+                  <rect x="682" y="92" width="176" height="44" rx="12" fill="#7C5CFF" fill-opacity="0.28" stroke="rgba(255,255,255,0.16)"/>
                 </g>
               </svg>
             </div>
@@ -367,9 +448,9 @@
           <div class="card">
             <h2>نقش‌ها و سطح دسترسی</h2>
             <ul>
-              <li class="fragment"><b>مدیر ارشد</b>: دید کلان، KPIها، روندها، هشدارها، خروجی مدیریتی.</li>
-              <li class="fragment"><b>منابع انسانی</b>: کنترل سیاست‌ها، شیفت‌ها، درخواست‌ها، تایید/رد، گزارش‌های عملیاتی.</li>
-              <li class="fragment"><b>کارمند</b>: مشاهده کارکرد، ثبت درخواست‌ها، تاریخچه و اعلان‌ها.</li>
+              <li class="fragment"><b>مدیر ارشد</b>: نمای ۳۶۰ درجه، KPIهای راهبردی، هشدارهای قابل اقدام، خروجی مدیریتی.</li>
+              <li class="fragment"><b>منابع انسانی</b>: کنترل سیاست‌ها، شیفت‌ها، درخواست‌ها، تایید/رد، گزارش‌های تحلیلی.</li>
+              <li class="fragment"><b>کارمند</b>: پنل شخصی، ثبت درخواست‌ها، شفافیت کارکرد و اعلان‌های سیستمی.</li>
             </ul>
             <div class="btnRow">
               <span class="btn primary">ورود</span>
@@ -1057,6 +1138,34 @@
       // RTL experience improvements
       navigationMode: 'default'
     });
+
+    const totalSlides = document.querySelectorAll('.slides > section').length;
+    const timeline = document.createElement('div');
+    timeline.className = 'deckTimeline';
+    timeline.innerHTML = `
+      <span class="timelineLabel">صفحه <strong>1</strong> از <strong>${totalSlides}</strong></span>
+      <div class="timelineTrack"></div>
+    `;
+    document.body.appendChild(timeline);
+    const track = timeline.querySelector('.timelineTrack');
+    const dots = [];
+    for (let i = 0; i < totalSlides; i += 1) {
+      const dot = document.createElement('span');
+      dot.className = 'timelineDot';
+      track.appendChild(dot);
+      dots.push(dot);
+    }
+
+    const updateTimeline = () => {
+      const idx = Reveal.getIndices().h;
+      timeline.querySelector('.timelineLabel strong').textContent = idx + 1;
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === idx);
+        dot.classList.toggle('past', i < idx);
+      });
+    };
+    Reveal.on('ready', updateTimeline);
+    Reveal.on('slidechanged', updateTimeline);
 
     // Small UX: tap-to-next on touch devices
     document.addEventListener('click', (e) => {

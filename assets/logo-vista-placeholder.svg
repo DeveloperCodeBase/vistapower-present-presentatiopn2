@@ -1,0 +1,15 @@
+<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="لوگوی نمونه شبکه هوشمند ابتکار ویستا">
+  <rect x="6" y="6" width="148" height="148" rx="36" fill="#101827" stroke="#7C5CFF" stroke-width="4"/>
+  <circle cx="80" cy="80" r="44" fill="url(#paint0_linear)"/>
+  <path d="M55 88C63 70 78 58 102 52" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" opacity="0.9"/>
+  <path d="M58 102C74 112 94 114 114 100" stroke="#00D4FF" stroke-width="8" stroke-linecap="round" opacity="0.9"/>
+  <circle cx="52" cy="84" r="6" fill="#20E3B2"/>
+  <circle cx="112" cy="52" r="6" fill="#7C5CFF"/>
+  <circle cx="118" cy="102" r="6" fill="#00D4FF"/>
+  <defs>
+    <linearGradient id="paint0_linear" x1="40" y1="40" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7C5CFF"/>
+      <stop offset="1" stop-color="#00D4FF"/>
+    </linearGradient>
+  </defs>
+</svg>
